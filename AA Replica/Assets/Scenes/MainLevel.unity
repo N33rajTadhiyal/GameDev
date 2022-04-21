@@ -197,7 +197,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.56
+  orthographic size: 8.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -242,6 +242,11 @@ MonoBehaviour:
   Ar: {fileID: 1137857387}
   sp: {fileID: 2057686865}
   anime: {fileID: 519420030}
+  aim: {fileID: 1137857383}
+  shooter: {fileID: 2057686864}
+  re: {fileID: 0}
+  qui: {fileID: 0}
+  Tex: {fileID: 1990889041}
 --- !u!1 &1052430535
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,8 +426,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137857383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 3.09, z: 0}
-  m_LocalScale: {x: 2.9582, y: 2.8384, z: 1}
+  m_LocalPosition: {x: -0.0672, y: 3.1327, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -602,11 +607,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 139
+    m_FontSize: 180
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 6
-    m_MaxSize: 170
+    m_MinSize: 1
+    m_MaxSize: 180
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -666,6 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5355862950842408396, guid: f91719b9f199cdf48a13739382aa49f6, type: 3}
+  sound: {fileID: 3836890236434720117, guid: 6d98c37dde064df4d896ef481dbf7c67, type: 3}
 --- !u!212 &2057686866
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Spawnner : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject prefab,sound;
+
 
 
     // Update is called once per frame
@@ -13,6 +14,7 @@ public class Spawnner : MonoBehaviour
         if(Input.GetButtonDown("Fire1"))
         {
             Spawn();
+            Instantiate(sound,transform.position,transform.rotation);
         }
     }
     public void Spawn()

@@ -22,7 +22,6 @@ public class move : MonoBehaviour
         {
             transform.SetParent(other.transform);
             ScoreSetter.score++;
-            Debug.Log(ScoreSetter.score);
             
             isPinned=true;
         }
