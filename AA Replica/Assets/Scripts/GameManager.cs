@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
   {
     Win();
   }
+    if(Input.GetKeyDown(KeyCode.Escape))
+    {
+      SceneManager.LoadScene(0);
+    }
   }
   public void End()
   {
