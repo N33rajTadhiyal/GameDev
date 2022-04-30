@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,8 +27,20 @@ public class PlayerMovement : MonoBehaviour
   private bool grounded;
   private bool climbing;
 
+  public GameObject JumpSound,hitSound;
 
-   private async void CheckCollisoin()
+  
+  //Health system Stuff
+  public int maxHealth;
+  public int currentHealth;
+  public Image [] heart;
+  public Sprite FullHeart;
+  public Sprite EmptyHeart;
+
+
+
+
+   private  void CheckCollisoin()
    {
        grounded=false;
        climbing=false;
@@ -45,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
            grounded= hit.transform.position.y< (transform.position.y-0.5f);
            Physics2D.IgnoreCollision(collider,result[i],!grounded);
          }
-         else if(hit.layer==LayerMask.NameToLayer("ladder"))
+         else if(hit.layer==LayerMask.NameToLayer("ladder") )
          {
              climbing=true;
          }
@@ -73,7 +86,10 @@ public class PlayerMovement : MonoBehaviour
    }
    void Update()
    {
+
     CheckCollisoin();
+    //health system
+    HealthSystem();
 
      if( climbing)
      {
@@ -82,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
      else if(grounded && Input.GetButtonDown("Jump"))
      {
          direction=Vector2.up*jumpforce;
+         Instantiate(JumpSound,transform.position,transform.rotation);
      }
      else{
          direction+=Physics2D.gravity*Time.deltaTime;
@@ -111,11 +128,34 @@ public class PlayerMovement : MonoBehaviour
    {
        myrb.MovePosition(myrb.position+direction*Time.fixedDeltaTime);
    }
-   void OnCollisionEnter2D(Collision2D other)
+
+
+ void OnCollisionEnter2D(Collision2D other)
    {
        if(other.gameObject.layer==LayerMask.NameToLayer("barrel"))
        {
-           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+           Instantiate(hitSound,transform.position,transform.rotation);
+           Destroy(other.gameObject);
+           currentHealth-=1; 
+           FindObjectOfType<GameManager>().Restart();          
+          // StartCoroutine(paus());           
+       }
+       else if(other.gameObject.tag=="danger")
+       {
+           FindObjectOfType<GameManager>().Restart();
+       }
+   }
+
+   void OnTriggerEnter2D(Collider2D other)
+   {
+       if(other.gameObject.tag=="goal")
+       {
+           FindObjectOfType<GameManager>().NextLevel();
+       }
+       else if(other.gameObject.tag=="gem")
+       {
+           other.gameObject.SetActive(false);
+         GemCollector.currentGem++;
        }
    }
  
@@ -142,6 +182,33 @@ void Animate()
          {
             spriteRenderer.sprite=Idel;
          }
+}
+
+IEnumerator paus()
+{
+    yield return new WaitForSeconds(1);
+   
+   
+}
+public  void HealthSystem()
+{
+    for(int i =0;i < heart.Length;i++)
+    {
+        if(i<currentHealth)
+        {
+         heart[i].sprite=FullHeart;
+        }
+        else{
+          heart[i].sprite=EmptyHeart;
+        }
+        if(i<maxHealth)
+        {
+          heart[i].enabled=true;
+        }
+        else{
+             heart[i].enabled=false;
+        }
+    }
 }
 
 
