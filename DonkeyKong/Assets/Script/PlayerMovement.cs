@@ -27,7 +27,11 @@ public class PlayerMovement : MonoBehaviour
   private bool grounded;
   private bool climbing;
 
+//Sound
   public GameObject JumpSound,hitSound;
+  public GameObject gemPIckSound;
+  public GameObject GoalReachSound;
+  
 
   
   //Health system Stuff
@@ -37,8 +41,7 @@ public class PlayerMovement : MonoBehaviour
   public Sprite FullHeart;
   public Sprite EmptyHeart;
 
-
-
+ 
 
    private  void CheckCollisoin()
    {
@@ -94,10 +97,12 @@ public class PlayerMovement : MonoBehaviour
      if( climbing)
      {
             direction.y= Input.GetAxis("Vertical")*speed;
+            
      }
      else if(grounded && Input.GetButtonDown("Jump"))
      {
          direction=Vector2.up*jumpforce;
+         
          Instantiate(JumpSound,transform.position,transform.rotation);
      }
      else{
@@ -122,6 +127,8 @@ public class PlayerMovement : MonoBehaviour
        {
            transform.eulerAngles=new Vector3(0.0f,180f,0);
        }
+
+     
    }
 
    void FixedUpdate()
@@ -150,12 +157,17 @@ public class PlayerMovement : MonoBehaviour
    {
        if(other.gameObject.tag=="goal")
        {
+             if(GemCollector.currentGem==3)
+             {
+                 Instantiate(GoalReachSound,transform.position,transform.rotation);
+             }
            FindObjectOfType<GameManager>().NextLevel();
        }
        else if(other.gameObject.tag=="gem")
        {
+           Instantiate(gemPIckSound,transform.position,transform.rotation);
            other.gameObject.SetActive(false);
-         GemCollector.currentGem++;
+           GemCollector.currentGem++;
        }
    }
  
