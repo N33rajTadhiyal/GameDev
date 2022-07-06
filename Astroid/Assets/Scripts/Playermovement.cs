@@ -28,6 +28,7 @@ public class Playermovement : MonoBehaviour
      if(Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.LeftArrow) )
      {
        _Turndirection=1.0f;
+       
      }
      else if(Input.GetKey(KeyCode.D) ||Input.GetKey(KeyCode.RightArrow) )
      {
@@ -69,8 +70,7 @@ public class Playermovement : MonoBehaviour
     {
       myrb.velocity=Vector3.zero;
       myrb.angularVelocity=0.0f;
-      this.gameObject.SetActive(false);
-      
+      this.gameObject.SetActive(false);      
       FindObjectOfType<GameManager>().PlayerDied();
     }
   }

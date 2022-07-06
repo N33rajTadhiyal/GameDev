@@ -13,8 +13,22 @@ public class GameManager : MonoBehaviour
   public int Score=0;
 
   public Text ScoreText,noOfLife;
+  public Text GameOvertext;
   public Image l1,l2,l3;
 
+  private bool GA=false;
+
+
+  public void Update()
+  {
+    if(Input.GetKeyDown(KeyCode.Space) && GA)
+    {
+      Reset();
+    }else if(Input.GetKeyDown(KeyCode.Escape))
+    {
+      Application.Quit();
+    }
+  }
 
   public void AstroidDied(Astroids astroid)
   {
@@ -23,15 +37,15 @@ public class GameManager : MonoBehaviour
 
     if(astroid.size<0.8)
     {
-      this.Score+=100;
+      this.Score+=50;
     }
     else if(astroid.size<1.30f)
     {
-      this.Score+=50;
+      this.Score+=20;
     }else{
       this.Score+=10;
     }
-    setScore();
+     setScore();
   }
 
   public void PlayerDied()
@@ -44,7 +58,7 @@ public class GameManager : MonoBehaviour
       if(lives<=0)
       {
         
-        Invoke(nameof(GameOver),2);
+        Invoke(nameof(GameOver),0);
        
       }
       else{
@@ -67,12 +81,9 @@ public class GameManager : MonoBehaviour
 
   public void GameOver()
   {
-    this.Score=0;
-    this.lives=3;
-    Respawn();
-    noOfLife.text=lives.ToString();
-    setScore();
-    SetLive();
+    GA=true;
+    this.GameOvertext.gameObject.SetActive(true);
+    
   }
 
   private void setScore()
@@ -103,5 +114,16 @@ public class GameManager : MonoBehaviour
          l2.gameObject.SetActive(false);
          l3.gameObject.SetActive(false);
     }
+  }
+
+  private void Reset()
+  {
+    this.GameOvertext.gameObject.SetActive(false);
+    this.Score=0;
+    this.lives=3;
+    Respawn();
+    noOfLife.text=lives.ToString();
+    setScore();
+    SetLive();
   }
 }
