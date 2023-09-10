@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
     {
        pc = GetComponent<PlayerController>();
        anim = GetComponent<Animator>();
+       
     }
 
     // Update is called once per frame

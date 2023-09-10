@@ -56,10 +56,6 @@ public class PlayerController : MonoBehaviour
          // setting walking animation
          anime.SetBool("walking",direction.x!=0);
 
-
-    
-        
-        
     
     }
 
@@ -93,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        RaycastHit2D raycasthit=Physics2D.BoxCast(boxcollider.bounds.center,boxcollider.bounds.size,0,Vector2.down,0.2f,groundlayer);
+        RaycastHit2D raycasthit=Physics2D.BoxCast(boxcollider.bounds.center,boxcollider.bounds.size,0,Vector2.down,0.9f,groundlayer);
         return raycasthit.collider!=null;
     }
 
@@ -110,12 +106,8 @@ public class PlayerController : MonoBehaviour
     public bool CanAttack()
     {
        return isIdel() && IsGrounded();
-    }
-
-    
+    }   
     
 
-
-  
     
 }
